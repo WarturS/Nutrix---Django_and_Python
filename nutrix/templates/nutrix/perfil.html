@@ -1,0 +1,32 @@
+{% extends 'base.html' %} 
+
+{% block title %}Perfil{% endblock %}
+
+{% block content %}
+    <h1 class="my-4">Perfil do Nutricionista</h1>
+
+    <div class="card shadow">
+        <div class="card-header bg-success text-white">
+            Minhas Informações
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Usuário:</dt>
+                <dd class="col-sm-9">{{ nutricionista.user.username }}</dd>
+
+                <dt class="col-sm-3">Nome Completo:</dt>
+                <dd class="col-sm-9">{{ nutricionista.user.get_full_name }}</dd>
+
+                <dt class="col-sm-3">Email:</dt>
+                <dd class="col-sm-9">{{ nutricionista.user.email }}</dd>
+
+                <dt class="col-sm-3">CRN:</dt>
+                <dd class="col-sm-9">{{ nutricionista.crn }}</dd>
+            </dl>
+        </div>
+    </div>
+    
+    <div class="mt-4">
+        <a href="{% url 'logout' %}" class="btn btn-warning">Sair / Logout</a>
+    </div>
+{% endblock content %}

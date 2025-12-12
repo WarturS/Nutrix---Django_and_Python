@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Painel do Cliente | NutriX{% endblock %}
+
+{% block content %}
+    <h2 style="color: #28a745;">Bem-vindo(a), {{ cliente.nome }}!</h2>
+    <p>Aqui você pode consultar os dados e agendamentos que seu nutricionista configurou.</p>
+    
+    <hr>
+    
+    <div style="border: 1px solid #28a745; padding: 15px; border-radius: 5px; background-color: #e6ffe6;">
+        <h3 style="margin-top: 0; color: #28a745;">Seu Agendamento</h3>
+        
+        {% if cliente.data_agendamento %}
+            <p><strong>Próxima Consulta:</strong> 
+                <span style="font-weight: bold; color: #007bff;">
+                    {{ cliente.data_agendamento|date:"d/m/Y" }} às {{ cliente.data_agendamento|date:"H:i" }}
+                </span>
+            </p>
+            <p><strong>Detalhes:</strong> {{ cliente.condicao_agendamento|default:"Sem detalhes adicionais." }}</p>
+            
+            {% if cliente.google_meet_link %}
+                <p><strong>Link da Reunião:</strong> 
+                    <a href="{{ cliente.google_meet_link }}" target="_blank" style="color: #007bff; text-decoration: none;">
+                        Acessar Reunião (Google Meet ou similar)
+                    </a>
+                </p>
+            {% endif %}
+        {% else %}
+            <p>Você não tem agendamentos futuros registrados pelo seu nutricionista ({{ cliente.nutricionista.nome_completo }}).</p>
+        {% endif %}
+    </div>
+    
+    <hr>
+
+    <h3>Seus Dados Cadastrais</h3>
+    <p><strong>Nutricionista Responsável:</strong> {{ cliente.nutricionista.nome_completo }}</p>
+    <p><strong>Email (Login):</strong> {{ cliente.user.email }}</p>
+    <p><strong>Altura:</strong> {{ cliente.altura|default:"Não informado" }} m</p>
+    <p><strong>Peso:</strong> {{ cliente.peso|default:"Não informado" }} kg</p>
+    <p><strong>IMC:</strong> <span style="font-weight: bold;">{{ cliente.imc|default:"N/A" }}</span></p>
+{% endblock %}
